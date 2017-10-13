@@ -36,17 +36,20 @@ class GridEngine extends Layer {
           rect(x*bs, y*bs, bs-1, bs-1);
   }
   
-  void drawLine(long coord1, long coord2) {
-    int x1 = (int)coord1 % w;
-    int y1 = (int)coord1 / w;
-    int x2 = (int)coord2 % w;
-    int y2 = (int)coord2 / w;
-    line(x1*bs, y1*bs, x2*bs, y2*bs);
+  void drawShape(long[] shape) {
+    beginShape();
+    for(long coord : shape) {
+      int x = (int)coord % w;
+      int y = (int)coord / w;
+      vertex(x*bs, y*bs);
+    }
+    endShape();
   }
   
   void drawShapes() {
     strokeWeight(2);
     stroke(255, 0, 0);
+    fill(255, 0, 0, 127);
     for(long[] shape : batchSet) {
       // Verification
       if(shape.length == 0)
@@ -54,11 +57,7 @@ class GridEngine extends Layer {
       if(shape.length < 4)
         throw new IllegalArgumentException("A shape needs at least 4 points.");
       
-      // Draw each connection except of the last one
-      for(int i = 1; i < shape.length; i++)
-        drawLine(shape[i-1], shape[i]);
-      // Draw last connection
-      drawLine(shape[shape.length-1], shape[0]);
+      drawShape(shape);
     }
   }
 }
