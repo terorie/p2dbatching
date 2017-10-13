@@ -27,7 +27,7 @@ void batch() {
 ////// RENDERING CODE \\\\\\
 
 Cursor cursor;
-GridEngine batchDraw;
+GridEngine gridEngine;
 
 void setup() {
   size(640, 480, P2D);
@@ -35,7 +35,7 @@ void setup() {
   h = height/bs;
   grid = new boolean[w][h];
   cursor = new Cursor(bs-1, bs-1, this);
-  batchDraw = new GridEngine(this);
+  gridEngine = new GridEngine(this);
 }
 
 void drawCursor() {
@@ -49,8 +49,8 @@ void drawCursor() {
 }
 
 void drawGrid() {
-  batchDraw.loadPixels();
-  set(0, 0, batchDraw);
+  gridEngine.loadPixels();
+  set(0, 0, gridEngine);
 }
 
 boolean handleMouse() {
@@ -77,7 +77,7 @@ void draw() {
   if(handleMouse()) {
     batchSet.clear();
     batch();
-    batchDraw.update();
+    gridEngine.update();
   }
   
   drawGrid();
@@ -90,7 +90,7 @@ void keyPressed() {
       for(int y = 0; y < h; y++)
         for(int x = 0; x < w; x++)
           grid[x][y] = false;
-      batchDraw.update();
+      gridEngine.update();
       break;
   }
 }
