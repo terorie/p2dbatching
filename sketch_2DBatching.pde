@@ -12,7 +12,6 @@ final ArrayList<long[]> batchSet = new ArrayList<long[]>();
 
 //// BATCHING ALGORITHM \\\\
 void batch() {
-  batchSet.clear();
   // Beispiel code
     // BatchSet erwartet eine Liste von Punkten/coords,
     // die wie bei MalenNachZahlen.exe nach einander
@@ -76,6 +75,7 @@ long coord(int x, int y) {
 void draw() {
   // Falls die Maus das Grid verändert hat
   if(handleMouse()) {
+    batchSet.clear();
     batch();
     batchDraw.update();
   }
